@@ -1,0 +1,89 @@
+
+
+============TESTING USER INPUT============
+
+Initial test counter values.
+Counter (Standard Time): 12:00:00pm
+Counter (Military Time): 12:00:00
+
+Testing IncrementSec. Incrementing second 21600 times (6 hours).
+Current test counter:
+Counter (Standard Time): 06:00:00pm
+Counter (Military Time): 18:00:00
+
+Testing IncrementMin. Incrementing minute 360 times (6 hours).
+Current test counter:
+Counter (Standard Time): 12:00:00am
+Counter (Military Time): 00:00:00
+
+Testing IncrementHour. Incrementing hour 9 times.
+Current test counter:
+Counter (Standard Time): 09:00:00am
+Counter (Military Time): 09:00:00
+
+Testing DecrementSec. Decrementing second 21600 times (6 hours).
+Current test counter:
+Counter (Standard Time): 03:00:00am
+Counter (Military Time): 03:00:00
+
+Testing DecrementMin. Decrementing 360 minutes (6 hours).
+Counter (Standard Time): 09:00:00pm
+Counter (Military Time): 21:00:00
+
+Testing DecrementHour. Decrementing 9 hours.
+Counter (Standard Time): 12:00:00pm
+Counter (Military Time): 12:00:00
+
+
+============ERROR TESTING============
+
+Invalid initialization values for counter.
+Seconds must be between 0 and 59. Given: -1
+Hours must be between 0 and 23. Given: 900
+
+Error in DisplayMilitaryTime:
+	Given counter has invalid value in sec field: 500
+	Given counter has invalid value in min field: 900
+Error in DisplayStandardTime:
+	Given counter has invalid value in sec field: 500
+	Given counter has invalid value in min field: 900
+Error in IncrementSec:
+	Given counter has invalid value in sec field: 500
+	Given counter has invalid value in hour field: 10000
+Error in IncrementMin:
+	Given counter has invalid value in sec field: 500
+	Given counter has invalid value in hour field: 10000
+Error in DisplayMilitaryTime:
+	Given counter has invalid value in sec field: 500
+Error in DisplayMilitaryTime:
+	Invalid counter pointer.
+Invalid Counter passed to DestroyCounter
+
+
+============DEMONSTRATING ROLLOVER TIMES============
+
+Counter (Military Time): 23:59:59
+Counter (Standard Time): 11:59:59pm
+Counter (Military Time): 00:00:00
+Counter (Standard Time): 12:00:00am
+Counter (Military Time): 00:00:01
+Counter (Standard Time): 12:00:01am
+
+
+Counter (Military Time): 11:59:59
+Counter (Standard Time): 11:59:59am
+Counter (Military Time): 12:00:00
+Counter (Standard Time): 12:00:00pm
+Counter (Military Time): 12:00:01
+Counter (Standard Time): 12:00:01pm
+
+
+Counter (Military Time): 00:59:59
+Counter (Standard Time): 12:59:59am
+Counter (Military Time): 01:00:00
+Counter (Standard Time): 01:00:00am
+Counter (Military Time): 01:00:01
+Counter (Standard Time): 01:00:01am
+
+Testing Complete.
+Exit Success

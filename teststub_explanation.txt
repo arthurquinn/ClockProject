@@ -1,0 +1,66 @@
+How to use teststub executable:
+
+The teststub executable has 3 stages:
+	User Input
+	Error Testing
+	Rollover times
+
+The teststub executable requires exactly 3 positive integer arguments. The arguments are ./teststub <sec> <min> <hour>. Missing or invalid arguments 
+	(such as -1 or 10abc) will be detected and an error message will be printed before terminating execution. 
+
+User Input:
+	To use the test stub it must be called with three arguments. An example execution that will succeed is ./teststub 3 3 9
+	Note that the first argument is seconds, the second argument is minutes, and the third argument is hours
+	Recommended test cases:
+		1. ./teststub "" "" ""
+			Expected result: Appropriate error shown.
+		2. ./teststub 10 # 11
+			Expected result: Appropriate error shown.
+		3. ./teststub 10a 8 9
+			Expected result: Appropriate error shown.
+		4. ./teststub 1 2 3 4
+			Expected result: Appropriate error shown.
+		5. ./teststub 1 2 -1
+			Expected result: Appropriate error shown.
+		6. ./teststub -1 300 4
+			Expected result: Appropriate error shown.
+		7. ./teststub 5 5 5
+			Expected result: Successful execution.
+
+	When given correct data the User Input section of the teststub will initialize the counter to the arguments given by the user
+	and perform these 6 operations on the resulting counter data structure:
+		1. Increment seconds 21600 times (6 hours)
+		2. Increment minutes 360 times (6 hours)
+		3. Increment hours 9 times
+		4. Decrement seconds 21600 times (6 hours)
+		5. Decrement minutes 360 times (6 hours)
+		6. Decrement hours 9 times
+
+		The counter with its initial values given by the user and the results of each of the 6 above operations will each be displayed
+		in both standard and military time to the user.
+
+Error Testing:
+	The error testing section will test errors that users might receive when implenting the data structure in their program.
+	This includes error such as invalid pointers being passed to a function, errors allocating memory, or errors that can occur from
+	manipulating the Counter_ struct fields themselves and giving the Counter bad data (e.g. *((unsigned int *) ct->sec) = 500 is a 
+	way that a user can manipulate Counter_ struct fields directly and cause the Counter to not function properly). If the user 
+	manipulates this data however the all functions that attempt to use that Counter data structure (e.g. IncrementSec or DisplayStandardTime)
+	will print an error and be unusable until the user either fixes such a modification or reinitializes the counter.
+
+	The calls made in this section of teststub will create these error conditions and demonstrate the error messages and how the data
+	structure handles these errors to the tester.
+
+Rollover Times:
+	The most crucial moments of usage of this counter data structure are of course when the times rollover. For example, when the time rolls over
+	from 23:59:59 (military time) to 00:00:00 (military time) the second field must rest, the minute field must rest and the hour field must reset
+	all in one call. Furthermore, when displaying this rollover in standard time (11:59:59pm to 12:00:00am) pm must be changed to am, all fields must
+	be reset, and the 0 value in the hour must be intepreted as 12. In this way, these are the most critical moments during execution of the
+	counter data structure. 3 rollover times have been hardcoded into the teststub to demonstrate their functionality independent of initial  user input
+
+	The times tested are:
+		1. 	Standard Time: 11:59:59pm to 12:00:01am
+			Military Time: 23:59:59 to 00:00:01
+		2.	Standard Time: 11:59:59am to 12:00:01pm
+			Military Time: 11:59:59 to 12:00:01
+		3.	Standard Time: 12:59:59am to 01:00:01am
+			Military Time: 00:59:59 to 01:00:01
